@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BERT QA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>BERT Q & A Model</h1>
+    
+    <form method="POST" action="/" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".json" required>
+        <input type="submit" value="Process File">
+    </form>
+    
+    {% if results %}
+        <h2>Results:</h2>
+        <table>
+            <tr>
+                <th>Answer</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Score</th>
+            </tr>
+            {% for result in results %}
+                <tr>
+                    <td>{{ result["answer"] }}</td>
+                    <td>{{ result["start_index"] }}</td>
+                    <td>{{ result["end_index"] }}</td>
+                    <td>{{ result["score"] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>

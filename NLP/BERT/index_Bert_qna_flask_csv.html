@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BERT QA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>BERT Q & A Model</h1>
+    
+    <form method="POST" action="/" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv" required>
+        <input type="submit" value="Process File">
+    </form>
+    
+    {% if results %}
+        <h2>Results:</h2>
+        <table>
+            <tr>
+                <th>Question</th>
+                <th>Answer</th>
+	        <th>Start</th>
+	        <th>End</th>
+		<th>Score</th>
+                <th>Time</th>
+            </tr>
+            {% for result in results %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ result[0] }}</td>
+		    <td>{{ result[2] }}</td>
+		    <td>{{ result[3] }}</td>
+		    <td>{{ result[4] }}</td>
+                    <td>{{ result[1] }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="5">Total Time (GPU)</td>
+                <td>{{ total_time_gpu }}</td>
+            </tr>
+        </table>
+    {% endif %}
+</body>
+</html>
